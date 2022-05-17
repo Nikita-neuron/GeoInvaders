@@ -24,6 +24,7 @@
             android:value="@string/google_maps_key" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:usesCleartextTraffic="true">
             <intent-filter>
@@ -32,12 +33,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LogInActivity">
+        <activity
+            android:name=".LogInActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".MapActivity">
+        <activity
+            android:name=".MapActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".RatingActivity"
-            tools:ignore="MissingClass">
+        <activity
+            android:name=".RatingActivity"
+            tools:ignore="MissingClass"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
