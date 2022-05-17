@@ -16,9 +16,12 @@ import com.example.geoinvaders.serverCommunication.Region;
 import com.example.geoinvaders.serverCommunication.ServerMessages;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RatingUsersAdapter extends RecyclerView.Adapter<RatingUsersAdapter.ViewHolder>{
     private ArrayList<Region> usersRegions;
+    private ArrayList<String> usersNames;
+
     String userName;
 
     ServerMessages serverMessages;
@@ -28,6 +31,8 @@ public class RatingUsersAdapter extends RecyclerView.Adapter<RatingUsersAdapter.
     public RatingUsersAdapter(ArrayList<Region> usersRegions, String userName, Context context) {
         this.usersRegions = usersRegions;
         this.userName = userName;
+
+        this.usersNames = new ArrayList<>();
 
         serverMessages = ServerMessages.getInstance();
 
@@ -47,22 +52,28 @@ public class RatingUsersAdapter extends RecyclerView.Adapter<RatingUsersAdapter.
     public void onBindViewHolder(@NonNull RatingUsersAdapter.ViewHolder holder, int position) {
 
         Region region = usersRegions.get(position);
-
-        TextView userNameText = holder.userName;
-        TextView userScore = holder.userScore;
-        View view = holder.view;
-
-        userNameText.setText(region.getUsername());
-
         int count = 0;
 
         for (Region userRegion : usersRegions) {
             if (region.getUsername().equals(userRegion.getUsername())) count++;
         }
-        userScore.setText(count + "");
 
-        if (userName.equals(region.getUsername())) {
-            view.setBackgroundColor(Color.rgb(67, 230, 64));
+        if (!usersNames.contains(region.getUsername()) && count > 0) {
+            System.out.println(region.getUsername());
+            TextView userNameText = holder.userName;
+            TextView userScore = holder.userScore;
+            View view = holder.view;
+
+            userNameText.setText(region.getUsername());
+            userScore.setText(count + "");
+
+            if (userName.equals(region.getUsername())) {
+                view.setBackgroundColor(Color.rgb(67, 230, 64));
+            }
+            usersNames.add(region.getUsername());
+        }
+        else {
+            holder.view.setVisibility(View.INVISIBLE);
         }
     }
 
